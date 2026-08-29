@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Anchor Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+</head>
+<body data-page="admin">
+  <div class="ocean-bg"></div>
+  <div class="rays"></div>
+  <div class="bubbles"></div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/logo-mark.png" alt="Anchor Protocol" />
+        ANCHOR
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Public site</a>
+        <button class="linkish" id="logout-btn" type="button">Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-wrap">
+    <div id="admin-login" class="card login-card">
+      <p class="eyebrow">Admin</p>
+      <h2>Sign in</h2>
+      <form id="login-form">
+        <label for="admin-pw">Password</label>
+        <input id="admin-pw" type="password" autocomplete="current-password" required />
+        <button class="btn btn-primary" type="submit" style="margin-top:14px;width:100%">Enter</button>
+        <p id="login-msg" class="msg"></p>
+      </form>
+    </div>
+
+    <div id="admin-panel" style="display:none">
+      <p class="eyebrow">Control</p>
+      <h2>Round setup</h2>
+      <p class="lead" style="margin-bottom:18px">Paste the treasury wallet. Start and end the vote yourself. The public timer only shows how long the round has been live.</p>
+
+      <form id="save-form">
+        <div class="card" style="margin-bottom:12px">
+          <h3>Treasury wallet</h3>
+          <label>Treasury wallet</label>
+          <input id="wallet" type="text" placeholder="Paste the protocol treasury pubkey" />
+          <label>Official coin CA</label>
+          <input id="official-ca-input" type="text" placeholder="Paste the main coin contract as soon as it launches" />
+          <p style="margin-top:10px;color:var(--muted);font-size:0.86rem">
+            Split is fixed: 50% winner buy · 20% buyback + lock · 30% reserves. Default floor is 15 SOL.
+          </p>
+        </div>
+
+        <div class="pair-form">
+          <div class="card">
+            <h3>Token A</h3>
+            <label>Ticker</label>
+            <input id="ticker-a" type="text" placeholder="WAVE" />
+            <label>Name</label>
+            <input id="name-a" type="text" />
+            <label>Contract address</label>
+            <input id="ca-a" type="text" />
+            <label>Pump.fun URL</label>
+            <input id="pump-a" type="url" />
+            <label>Image</label>
+            <input id="img-a" type="file" accept="image/*" />
+            <img id="prev-a" class="preview" alt="" style="display:none" />
+          </div>
+          <div class="card">
+            <h3>Token B</h3>
+            <label>Ticker</label>
+            <input id="ticker-b" type="text" placeholder="TIDE" />
+            <label>Name</label>
+            <input id="name-b" type="text" />
+            <label>Contract address</label>
+            <input id="ca-b" type="text" />
+            <label>Pump.fun URL</label>
+            <input id="pump-b" type="url" />
+            <label>Image</label>
+            <input id="img-b" type="file" accept="image/*" />
+            <img id="prev-b" class="preview" alt="" style="display:none" />
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <label>Narrative</label>
+          <textarea id="narrative" placeholder="Why these two coins are in the same fight."></textarea>
+          <label style="display:flex;align-items:center;gap:8px;margin-top:16px">
+            <input id="override-threshold" type="checkbox" style="width:auto" />
+            Override 15 SOL floor and allow this vote to start anyway
+          </label>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-primary" type="submit">Save wallet + pair</button>
+          <button class="btn btn-ghost" type="button" id="start-round">Start vote</button>
+          <button class="btn btn-ghost" type="button" id="close-round">End vote</button>
+          <button class="btn btn-ghost" type="button" id="reset-round">Reset coins + round</button>
+        </div>
+        <p id="save-msg" class="msg"></p>
+      </form>
+
+      <div class="card" style="margin-top:16px">
+        <h3>Next-round suggestions</h3>
+        <p style="color:var(--muted);margin:8px 0 12px;font-size:0.9rem">Pairs submitted on the public page.</p>
+        <div id="admin-suggest-list"></div>
+        <button class="btn btn-ghost" type="button" id="clear-suggestions" style="margin-top:12px">Delete all suggestions</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

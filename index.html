@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anchor Protocol</title>
+  <meta name="description" content="Anti-PvP protocol on Pump.fun. Trenches vote. Treasury executes a 50 / 20 / 30 split once the chest holds 15 SOL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch.png" />
+</head>
+<body data-page="public">
+  <div class="ocean-bg"></div>
+  <div class="rays"></div>
+  <div class="bubbles"></div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top">
+        <img class="brand-mark" src="assets/logo-mark.png" alt="Anchor Protocol" />
+        ANCHOR
+      </a>
+      <nav class="nav-links">
+        <a href="#how">Protocol</a>
+        <a href="#vote">Vote</a>
+        <a href="#treasury">Treasury</a>
+        <a class="x-link" href="https://x.com/TheSolanaAnchor" target="_blank" rel="noopener" aria-label="Anchor on X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.726-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="btn btn-primary" href="#vote">Voting</a>
+      </nav>
+      <button class="btn btn-ghost menu-btn" id="menu-btn" type="button">Menu</button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#how">Protocol</a>
+      <a href="#vote">Vote</a>
+      <a href="#treasury">Treasury</a>
+      <a href="https://x.com/TheSolanaAnchor" target="_blank" rel="noopener">X account</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Anti-PvP · Pump.fun · Solana</p>
+        <h1>Two coins.<br>One buy.</h1>
+        <p class="lead">
+          When two Pump.fun tokens share a narrative, trenches vote.
+          A round normally needs 15 SOL in the treasury. After the winner takes the PvP, the protocol DCAs out.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#vote">Vote</a>
+        </div>
+        <div class="card ca-box" id="official-ca-wrap">
+          <div class="k">Official CA</div>
+          <code class="addr" id="official-ca"></code>
+          <div class="ca-actions">
+            <button class="btn btn-ghost" type="button" onclick="copyOfficialCa()">Copy</button>
+            <a class="btn btn-ghost" id="official-pump" href="https://pump.fun" target="_blank" rel="noopener">Pump</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/hero-icon.png" alt="Anchor Protocol mark" />
+      </div>
+    </section>
+
+    <section id="how">
+      <p class="eyebrow">Rules</p>
+      <h2>How a round works</h2>
+      <p class="lead">Creator fees fill a public wallet. Nothing moves until the minimum is met. Then the split is fixed.</p>
+
+      <div class="split">
+        <article class="card">
+          <div class="pct">50%</div>
+          <div class="lbl">Buys the winning coin after the 5-minute vote.</div>
+        </article>
+        <article class="card">
+          <div class="pct">20%</div>
+          <div class="lbl">Buyback of the main Anchor coin, then locked.</div>
+        </article>
+        <article class="card">
+          <div class="pct">30%</div>
+          <div class="lbl">Protocol health. Stays in reserve.</div>
+        </article>
+      </div>
+
+      <div class="grid-3" style="margin-top:12px">
+        <article class="card">
+          <h3>1. Fill the chest</h3>
+          <p>Creator fees from the main coin accumulate in the treasury wallet.</p>
+        </article>
+        <article class="card">
+          <h3>2. Hit 15 SOL</h3>
+          <p>A round cannot start below 15 SOL. That floor keeps buys meaningful.</p>
+        </article>
+        <article class="card">
+          <h3>3. Five-minute vote</h3>
+          <p>Trenches pick a side while the timer runs. When the vote ends, 50% of the live balance buys the winner.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="vote">
+      <p class="eyebrow">Current round</p>
+      <h2>Trenches vote</h2>
+      <p class="lead">One vote per browser per round. Watch the timer for how long this vote has been live.</p>
+      <div class="round-meta" id="round-meta"></div>
+      <div class="timer-row" id="timer-row"></div>
+      <p class="narrative" id="narrative-text"></p>
+      <div class="arena" id="vote-arena"></div>
+
+      <div class="card" style="margin-top:18px">
+        <h3>Suggest the next pair</h3>
+        <p style="color:var(--muted);margin:8px 0 14px">Drop two tickers the trenches want to see next round.</p>
+        <form id="suggest-form" class="pair-form">
+          <div>
+            <label>Coin 1</label>
+            <input id="suggest-a" type="text" maxlength="32" placeholder="$TICKER" />
+          </div>
+          <div>
+            <label>Coin 2</label>
+            <input id="suggest-b" type="text" maxlength="32" placeholder="$TICKER" />
+          </div>
+          <div style="grid-column:1 / -1">
+            <button class="btn btn-primary" type="submit">Send suggestion</button>
+          </div>
+        </form>
+        <div id="suggest-list" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <section id="treasury">
+      <p class="eyebrow">Public chest</p>
+      <h2>Treasury</h2>
+      <p class="lead">Balance is read live from the Solana wallet in config. Change that one string and every number here updates.</p>
+
+      <div class="stats">
+        <article class="card stat">
+          <div class="k">Active treasury</div>
+          <div class="v" id="treasury-sol">—</div>
+          <div class="s" id="treasury-status">Reading chain…</div>
+        </article>
+        <article class="card stat">
+          <div class="k">Round threshold</div>
+          <div class="v">15 SOL</div>
+          <div class="s" id="threshold-label">Minimum to open a vote</div>
+        </article>
+      </div>
+
+      <div class="split" style="margin-top:12px">
+        <article class="card stat">
+          <div class="k">Winner buy</div>
+          <div class="v" id="split-buy">—</div>
+          <div class="s">50% of active SOL</div>
+        </article>
+        <article class="card stat">
+          <div class="k">Buyback + lock</div>
+          <div class="v" id="split-lock">—</div>
+          <div class="s">20% into the main coin</div>
+        </article>
+        <article class="card stat">
+          <div class="k">Reserves</div>
+          <div class="v" id="split-reserve">—</div>
+          <div class="s">30% protocol health</div>
+        </article>
+      </div>
+
+      <div class="card threshold">
+        <div class="k" style="font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600">Progress to next round</div>
+        <div class="track"><i id="threshold-bar"></i></div>
+        <p class="s" id="threshold-copy" style="margin-top:8px;color:var(--muted);font-size:0.84rem"></p>
+      </div>
+
+      <div class="card wallet-box">
+        <div class="wallet-top">
+          <div class="k" style="font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600">Treasury wallet</div>
+          <div class="wallet-actions">
+            <button class="btn btn-ghost" type="button" onclick="copyWallet()">Copy</button>
+            <a class="btn btn-ghost" id="solscan-link" href="https://solscan.io" target="_blank" rel="noopener">Solscan</a>
+          </div>
+        </div>
+        <code class="addr" id="treasury-wallet">—</code>
+      </div>
+    </section>
+
+    <section id="after">
+      <p class="eyebrow">After the PvP</p>
+      <h2>Win, then exit clean</h2>
+      <p class="lead">The vote is only the entry. Once the other coin is dead, Anchor does not dump the winner into the chart.</p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Winner gets the buy</h3>
+          <p>50% of the active treasury buys the voted coin. That is the anti-PvP punch.</p>
+        </article>
+        <article class="card">
+          <h3>Wait for the other side to die</h3>
+          <p>When the losing ticker is effectively dead, the protocol starts taking profit — not at the wick.</p>
+        </article>
+        <article class="card">
+          <h3>Responsible DCA out</h3>
+          <p>Sells are split across time so the chart is not smashed. Realized SOL goes back to the chest for the next PvP.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Anchor Protocol
+    · <a href="https://x.com/TheSolanaAnchor" target="_blank" rel="noopener">@TheSolanaAnchor</a>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

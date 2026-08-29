@@ -1,0 +1,28 @@
+{
+  "treasuryWallet": "",
+  "officialCa": "",
+  "narrative": "",
+  "roundId": 1,
+  "votingOpen": false,
+  "voteEndsAt": 0,
+  "tokens": [
+    {
+      "id": "a",
+      "ticker": "",
+      "name": "",
+      "ca": "",
+      "pumpUrl": "",
+      "image": "",
+      "votes": 0
+    },
+    {
+      "id": "b",
+      "ticker": "",
+      "name": "",
+      "ca": "",
+      "pumpUrl": "",
+      "image": "",
+      "votes": 0
+    }
+  ]
+}
